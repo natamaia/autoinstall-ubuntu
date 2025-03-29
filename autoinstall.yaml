@@ -1,0 +1,79 @@
+autoinstall:
+  version: 1
+  identity:
+    hostname: ubuntu
+    username: natanael
+    password: 0da5335c7706f66dce4a92c557a31c2eb4ece65581efbfb7d0dfd9ee07e654303955c59de850465d0a5869688ea4190567a572913a5d63a94ee081fe96f946f1
+  locale: pt_BR
+  keyboard:
+    layout: pt
+    variant: abnt2
+  network:
+    version: 2
+    wifis:
+      wlan0:
+        dhcp4: true
+        optional: true
+        access-points:
+          "CAMPELOVISQ":
+            password: "Sterben642"
+  packages:
+    - build-essential
+    - gcc
+    - g++
+    - openjdk-17-jdk
+    - john
+    - snapd
+    - curl
+    - hydra
+    - nmap
+    - bluez
+    - git
+    - wireshark
+    - python3
+    - python3-pip
+    - nodejs
+    - npm
+    - mono-complete  # para C#
+  late-commands:
+    - curtin in-target --target=/target -- snap install firefox
+    - curtin in-target --target=/target -- snap install code --classic
+    - curtin in-target --target=/target -- snap install telegram-desktop
+    - curtin in-target --target=/target -- snap install discord
+    - curtin in-target --target=/target -- snap install insomnia
+    - curtin in-target --target=/target -- snap install anydesk
+    - curtin in-target --target=/target -- snap install netbeans --classic
+  storage:
+    layout:
+      name: direct
+    config:
+      - type: disk
+        id: disk0
+        match:
+          size: largest
+        ptable: gpt
+        wipe: superblock-recursive
+        preserve: false
+        name: ''
+      - type: partition
+        id: fat32-part
+        device: disk0
+        size: 150G
+      - type: format
+        id: format-fat
+        volume: fat32-part
+        fstype: vfat
+      - type: mount
+        device: format-fat
+        path: /mnt/arquivos
+      - type: partition
+        id: system-part
+        device: disk0
+        size: -1
+      - type: format
+        id: format-root
+        volume: system-part
+        fstype: ext4
+      - type: mount
+        device: format-root
+        path: /
