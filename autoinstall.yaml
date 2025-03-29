@@ -15,7 +15,7 @@ autoinstall:
         dhcp4: true
         optional: true
         access-points:
-          "CAMPELOVISQ":
+          "SSID":
             password: "password"
   packages:
     - build-essential
