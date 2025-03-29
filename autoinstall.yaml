@@ -3,7 +3,7 @@ autoinstall:
   identity:
     hostname: ubuntu
     username: natanael
-    password: 0da5335c7706f66dce4a92c557a31c2eb4ece65581efbfb7d0dfd9ee07e654303955c59de850465d0a5869688ea4190567a572913a5d63a94ee081fe96f946f1
+    password: password-hash-SHA-512
   locale: pt_BR
   keyboard:
     layout: pt
@@ -16,11 +16,10 @@ autoinstall:
         optional: true
         access-points:
           "CAMPELOVISQ":
-            password: "Sterben642"
+            password: "password"
   packages:
     - build-essential
     - gcc
-    - g++
     - openjdk-17-jdk
     - john
     - snapd
@@ -34,7 +33,6 @@ autoinstall:
     - python3-pip
     - nodejs
     - npm
-    - mono-complete  # para C#
   late-commands:
     - curtin in-target --target=/target -- snap install firefox
     - curtin in-target --target=/target -- snap install code --classic
